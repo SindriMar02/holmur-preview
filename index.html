@@ -1,0 +1,634 @@
+<!doctype html>
+<html lang="is">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#8A999E">
+<meta name="color-scheme" content="light">
+<title>Hólmur · Gisting við rætur Vatnajökuls</title>
+<meta name="description" content="Fjölskyldurekið gistiheimili á starfandi sauðfjárbúi í Mýrum, 33 km vestan Hafnar. Tvö uppgerð bæjarhús og morgunverður í Jón Ríki.">
+<script>/* focus-guard: a focus ring only for people using a keyboard.
+
+   The bug it ends: a menu, drawer or dialog opens and its FIRST link (or the dialog's close button)
+   is outlined, as if it were selected. Cause: opening code calls first.focus(), or <dialog>.showModal()
+   focuses the first control by itself. When nothing was focused before, the browser decides the ring is
+   wanted. Safari never focuses a button on click and a touch tap never does either, so on iPhone,
+   iPad and Safari the very first tap paints the ring. Chrome with a mouse hides it, which is why it
+   passes the desktop check and then reappears on Sindri's phone.
+
+   How: remember the last input kind on <html data-input="pointer|key"> and let focus-guard.css drop the
+   ring while the last input was a pointer. Keyboard users keep every ring. Load before everything else
+   (inline in <head>, ~400 bytes), no dependencies. Doc: _tools/focus-guard/README.md */
+(function () {
+  var root = document.documentElement;
+  function set(v) { if (root.getAttribute('data-input') !== v) root.setAttribute('data-input', v); }
+  addEventListener('pointerdown', function () { set('pointer'); }, true);
+  addEventListener('keydown', function (e) {
+    if (e.key === 'Shift' || e.key === 'Control' || e.key === 'Alt' || e.key === 'Meta') return;
+    set('key');
+  }, true);
+})();
+</script>
+<script>document.documentElement.classList.add('js');window.hmFailSafe=setTimeout(()=>document.documentElement.classList.remove('js'),3500);</script>
+<link rel="stylesheet" href="assets/css/fonts.css">
+<link rel="stylesheet" href="assets/vendor/sndr-booking.css">
+<link rel="stylesheet" href="assets/css/holmur.css">
+<link rel="stylesheet" href="assets/vendor/focus-guard.css">
+<script defer src="assets/vendor/gsap.min.js">
+</script>
+<script defer src="assets/vendor/ScrollTrigger.min.js">
+</script>
+<script defer src="assets/vendor/Flip.min.js"></script>
+<script defer src="assets/vendor/SplitText.min.js"></script>
+<script defer src="assets/vendor/lenis.min.js"></script>
+<script defer src="assets/vendor/sndr-booking.js">
+</script>
+<script defer src="assets/js/holmur.js">
+</script>
+</head>
+<body>
+<div class="cursor-pill" aria-hidden="true">Skoða</div>
+<a class="skip" href="#main">Beint í efni</a>
+<div class="awning" aria-hidden="true">
+</div>
+<header class="bar">
+<a class="brand" href="#heim" aria-label="Hólmur Farm, forsíða">
+<span>Hólmur Farm</span>
+</a>
+<nav class="nav-main" aria-label="Aðalvalmynd">
+<a href="#gisting">GISTING</a>
+<span aria-hidden="true">·</span>
+<a href="#buid">BÚIÐ</a>
+<span aria-hidden="true">·</span>
+<a href="#jon-riki">JÓN RÍKI</a>
+</nav>
+<div class="nav-end">
+<nav aria-label="Umhverfi og samband">
+<a href="#umhverfid">UMHVERFIÐ</a>
+<span aria-hidden="true">·</span>
+<a href="#boka">SAMBAND</a>
+</nav>
+<button type="button" class="fog pill" data-book>BÓKA</button>
+<button type="button" class="hamburger" aria-label="Opna valmynd" aria-expanded="false" aria-controls="menu">
+<span>
+</span>
+<span>
+</span>
+<span>
+</span>
+</button>
+</div>
+<i class="nav-indicator" aria-hidden="true"></i>
+<i class="page-progress" aria-hidden="true"></i>
+</header>
+<main id="main" class="sheet">
+<section class="hero" id="heim">
+<div class="hero-copy">
+<p class="eyebrow">
+<i class="pin" aria-hidden="true">
+</i>HÓLMUR, MÝRAR · 781 HORNAFJÖRÐUR</p>
+<h1>
+<span class="mask">
+<span>LIFANDI BÝLI</span>
+</span>
+<span class="mask">
+<span>VIÐ RÆTUR</span>
+</span>
+<span class="mask">
+<span>VATNAJÖKULS</span>
+</span>
+</h1>
+<p class="caps hero-caps">FJÖLSKYLDUREKIÐ GISTIHEIMILI Á STARFANDI SAUÐFJÁRBÚI, 33 KM VESTAN HAFNAR OG 45 KM AUSTAN JÖKULSÁRLÓNS. GIST Í UPPGERÐUM BÆJARHÚSUM OG BORÐAÐ MORGUNVERÐ Í JÓN RÍKI.</p>
+<button type="button" class="fog hero-book" data-book>BÓKA GISTINGU <span aria-hidden="true">↗︎</span>
+</button>
+</div>
+<div class="film hero-media">
+<img fetchpriority="high" width="1800" height="1350" src="assets/img/hero-reindeer.jpg" alt="Hreindýr á túni fyrir framan hvít bæjarhús og fjöll" decoding="async">
+</div>
+</section>
+<section id="nafnid" class="section story">
+<div class="story-heading">
+<p class="eyebrow reveal">01 · SAGAN</p>
+<h2>
+<span class="mask">
+<span>FJÖLSKYLDUBÚ SÍÐAN 1951</span>
+</span>
+</h2>
+</div>
+<div class="story-intro">
+<p class="reveal">Bærinn dregur nafn sitt af því að sterk jökulá umlukti hann eitt sinn. Með tímanum breytti áin farvegi sínum og eftir varð landið sem við búum á í dag.</p>
+<figure class="photo ">
+<div class="parallax">
+<img width="2000" height="1335" src="assets/img/river-delta.jpg" alt="Kvíslótt jökulá rennur um dökkan sand" loading="lazy" decoding="async">
+</div>
+</figure>
+</div>
+<ol class="year-rail">
+<li>
+<i aria-hidden="true">
+</i>
+<strong>1920</strong>
+<span>húsgrunnur gamla íbúðarhússins</span>
+</li>
+<li>
+<i aria-hidden="true">
+</i>
+<strong>1951</strong>
+<span>Guðjón Arason og Margrét Sigurðardóttir kaupa Hólm</span>
+</li>
+<li>
+<i aria-hidden="true">
+</i>
+<strong>1963</strong>
+<span>fjárhús og fjós byggð</span>
+</li>
+<li>
+<i aria-hidden="true">
+</i>
+<strong>1981</strong>
+<span>vélaskemman byggð</span>
+</li>
+<li>
+<i aria-hidden="true">
+</i>
+<strong>1992</strong>
+<span>Guðrún og Magnús taka við</span>
+</li>
+<li>
+<i aria-hidden="true">
+</i>
+<strong>2005</strong>
+<span>fyrstu gestirnir í gamla íbúðarhúsinu</span>
+</li>
+<li>
+<i aria-hidden="true">
+</i>
+<strong>2011</strong>
+<span>Fjósið opnar sem gisting</span>
+</li>
+</ol>
+<figure class="photo panorama">
+<div class="parallax">
+<img width="2400" height="1039" src="assets/img/panorama.jpg" alt="Á bugðast um gróið flatlendi" loading="lazy" decoding="async">
+</div>
+</figure>
+</section>
+<section class="section" id="gisting">
+<div class="section-intro">
+<p class="eyebrow reveal">02 · GISTING</p>
+<h2>
+<span class="mask">
+<span>TVÖ HÚS Á BÆNUM</span>
+</span>
+</h2>
+<p class="reveal">Húsin eru uppgerð í stíl íslenskra sveitaheimila á sjöunda áratugnum.</p>
+</div>
+<div class="houses">
+<article>
+<figure class="photo ">
+<div class="parallax">
+<img width="1152" height="768" src="assets/img/farmhouse.jpg" alt="Geit fyrir framan gamla hvíta íbúðarhúsið" loading="lazy" decoding="async">
+</div>
+</figure>
+<h3>Gamla íbúðarhúsið</h3>
+<p class="reveal">10 gestir í 4 tveggja manna herbergjum og 2 eins manns herbergjum, baðherbergi á hverri hæð, gestaeldhús.</p>
+<div class="room-carousel" role="region" aria-roledescription="carousel" aria-label="Gamla íbúðarhúsið">
+<div class="room-track" id="rooms-0" tabindex="0" aria-label="Herbergi">
+<div class="room-card" role="group" aria-labelledby="room-double-0">
+<div class="room-photos"><figure class="photo ">
+<div class="parallax">
+<img width="1200" height="675" src="assets/img/room-1.jpg" alt="Bjart herbergi með rúmum og glugga" loading="lazy" decoding="async">
+</div>
+</figure></div>
+<h4 id="room-double-0">Tveggja manna herbergi</h4>
+<p>4 tveggja manna herbergi.</p>
+<button type="button" class="fog" data-book>Sjá lausar nætur <span aria-hidden="true">↗︎</span>
+</button>
+</div>
+<div class="room-card" role="group" aria-labelledby="room-single-0">
+<div class="room-photos"><figure class="photo ">
+<div class="parallax">
+<img width="1024" height="576" src="assets/img/room-3.jpg" alt="Rúm og húsgögn í herbergi" loading="lazy" decoding="async">
+</div>
+</figure></div>
+<h4 id="room-single-0">Eins manns herbergi</h4>
+<p>2 eins manns herbergi.</p>
+<button type="button" class="fog" data-book>Sjá lausar nætur <span aria-hidden="true">↗︎</span>
+</button>
+</div>
+<div class="room-card" role="group" aria-labelledby="room-shared-0">
+<div class="room-photos"><figure class="photo ">
+<div class="parallax">
+<img width="1200" height="675" src="assets/img/room-4.jpg" alt="Borð og stólar í gestaeldhúsi" loading="lazy" decoding="async">
+</div>
+</figure></div>
+<h4 id="room-shared-0">Gestaeldhús</h4>
+<p>Eldhús með búnaði þar sem gestir geta eldað.</p>
+<button type="button" class="fog" data-book>Sjá lausar nætur <span aria-hidden="true">↗︎</span>
+</button>
+</div>
+<div class="room-card" role="group" aria-labelledby="room-shared-1">
+<div class="room-photos"><figure class="photo ">
+<div class="parallax">
+<img width="1200" height="675" src="assets/img/room-5.jpg" alt="Baðherbergi með vaski og sturtu" loading="lazy" decoding="async">
+</div>
+</figure></div>
+<h4 id="room-shared-1">Baðherbergi</h4>
+<p>Eitt baðherbergi á hverri hæð.</p>
+<button type="button" class="fog" data-book>Sjá lausar nætur <span aria-hidden="true">↗︎</span>
+</button>
+</div>
+</div>
+<div class="room-controls"><button type="button" class="room-prev" aria-label="Fyrra herbergi" aria-controls="rooms-0">←</button><div class="room-progress" aria-hidden="true"><i></i></div><button type="button" class="room-next" aria-label="Næsta herbergi" aria-controls="rooms-0">→</button></div>
+</div>
+</article>
+<article>
+<figure class="photo ">
+<div class="parallax">
+<img width="840" height="460" src="assets/img/fjos-1.jpg" alt="Uppbúin rúm í Fjósi" loading="lazy" decoding="async">
+</div>
+</figure>
+<h3>Fjósið</h3>
+<p class="reveal">Í gamla fjósinu eru 2 þriggja manna fjölskylduherbergi og 1 tveggja manna stúdíóherbergi með eldhúsaðstöðu, 2 baðherbergi.</p>
+<div class="room-carousel" role="region" aria-roledescription="carousel" aria-label="Fjósið">
+<div class="room-track" id="rooms-1" tabindex="0" aria-label="Herbergi">
+<div class="room-card" role="group" aria-labelledby="room-family-0">
+<div class="room-photos"><figure class="photo ">
+<div class="parallax">
+<img width="840" height="460" src="assets/img/fjos-2.jpg" alt="Rúm og gluggi í Fjósi" loading="lazy" decoding="async">
+</div>
+</figure></div>
+<h4 id="room-family-0">Þriggja manna fjölskylduherbergi</h4>
+<p>2 þriggja manna fjölskylduherbergi.</p>
+<button type="button" class="fog" data-book>Sjá lausar nætur <span aria-hidden="true">↗︎</span>
+</button>
+</div>
+<div class="room-card" role="group" aria-labelledby="room-studio-0">
+<div class="room-photos"><figure class="photo ">
+<div class="parallax">
+<img width="900" height="1200" src="assets/img/fjos-4.jpg" alt="Rúm og innrétting í herbergi" loading="lazy" decoding="async">
+</div>
+</figure></div>
+<h4 id="room-studio-0">Tveggja manna stúdíóherbergi</h4>
+<p>1 tveggja manna stúdíóherbergi með eldhúsaðstöðu.</p>
+<button type="button" class="fog" data-book>Sjá lausar nætur <span aria-hidden="true">↗︎</span>
+</button>
+</div>
+</div>
+<div class="room-controls"><button type="button" class="room-prev" aria-label="Fyrra herbergi" aria-controls="rooms-1">←</button><div class="room-progress" aria-hidden="true"><i></i></div><button type="button" class="room-next" aria-label="Næsta herbergi" aria-controls="rooms-1">→</button></div>
+</div>
+</article>
+</div>
+</section>
+<section class="section" id="buid">
+<div class="section-intro">
+<p class="eyebrow reveal">03 · BÚIÐ</p>
+<h2>
+<span class="mask">
+<span>STARFANDI SAUÐFJÁRBÚ</span>
+</span>
+</h2>
+<p class="reveal">Kindur, geitur, hænur, kornhænur, endur og grænmetisrækt. Kettirnir Karri og Lóra teljast líka til fjölskyldunnar.</p>
+</div>
+<div class="farm-grid">
+<button type="button" class="gallery-item" data-gallery="0" aria-label="Skoða mynd: Lamb á bænum">
+<span class="photo ">
+<span class="parallax">
+<img width="1200" height="900" src="assets/img/farm-1.jpg" alt="Lamb á bænum" loading="lazy" decoding="async">
+</span>
+</span>
+<span class="caption">Lamb á bænum</span>
+</button>
+<button type="button" class="gallery-item" data-gallery="1" aria-label="Skoða mynd: Geitur úti við hús">
+<span class="photo ">
+<span class="parallax">
+<img width="1200" height="801" src="assets/img/farm-2.jpg" alt="Geitur úti við hús" loading="lazy" decoding="async">
+</span>
+</span>
+<span class="caption">Geitur úti við hús</span>
+</button>
+<button type="button" class="gallery-item" data-gallery="2" aria-label="Skoða mynd: Hrútur á túni">
+<span class="photo ">
+<span class="parallax">
+<img width="900" height="1200" src="assets/img/farm-3.jpg" alt="Hrútur á túni" loading="lazy" decoding="async">
+</span>
+</span>
+<span class="caption">Hrútur á túni</span>
+</button>
+<button type="button" class="gallery-item" data-gallery="3" aria-label="Skoða mynd: Endur á bænum">
+<span class="photo ">
+<span class="parallax">
+<img width="1200" height="900" src="assets/img/farm-4.jpg" alt="Endur á bænum" loading="lazy" decoding="async">
+</span>
+</span>
+<span class="caption">Endur á bænum</span>
+</button>
+<button type="button" class="gallery-item" data-gallery="4" aria-label="Skoða mynd: Geit við girðingu">
+<span class="photo ">
+<span class="parallax">
+<img width="1200" height="800" src="assets/img/farm-5.jpg" alt="Geit við girðingu" loading="lazy" decoding="async">
+</span>
+</span>
+<span class="caption">Geit við girðingu</span>
+</button>
+<button type="button" class="gallery-item" data-gallery="5" aria-label="Skoða mynd: Köttur situr á möl">
+<span class="photo ">
+<span class="parallax">
+<img width="1200" height="800" src="assets/img/farm-6.jpg" alt="Köttur situr á möl" loading="lazy" decoding="async">
+</span>
+</span>
+<span class="caption">Köttur situr á möl</span>
+</button>
+<button type="button" class="gallery-item" data-gallery="6" aria-label="Skoða mynd: Hænur úti við">
+<span class="photo ">
+<span class="parallax">
+<img width="1200" height="906" src="assets/img/farm-7.jpg" alt="Hænur úti við" loading="lazy" decoding="async">
+</span>
+</span>
+<span class="caption">Hænur úti við</span>
+</button>
+<button type="button" class="gallery-item" data-gallery="7" aria-label="Skoða mynd: Geit í grasi">
+<span class="photo ">
+<span class="parallax">
+<img width="1200" height="800" src="assets/img/farm-8.jpg" alt="Geit í grasi" loading="lazy" decoding="async">
+</span>
+</span>
+<span class="caption">Geit í grasi</span>
+</button>
+</div>
+</section>
+<section class="section restaurant" id="jon-riki">
+<div class="restaurant-intro">
+<div>
+<p class="eyebrow reveal">04 · VIÐ BORÐIÐ</p>
+<h2>
+<span class="mask">
+<span>JÓN RÍKI</span>
+</span>
+</h2>
+</div>
+<div>
+<p class="reveal">Veitingastaðurinn er í gömlu vélaskemmunni. Þar er morgunverður borinn fram með útsýni, og kvöldverður á sumrin.</p>
+<p class="reveal">Kvöldverður aðeins með bókun: <a href="tel:+3547830300">783 0300</a> eða <a href="mailto:holmur@eldhorn.is">holmur@eldhorn.is</a>
+</p>
+</div>
+</div>
+<div class="restaurant-grid">
+<div class="mosaic-column">
+<figure class="photo ">
+<div class="parallax">
+<img width="1200" height="740" src="assets/img/jonriki-1.jpg" alt="Borð og stólar í veitingasal" loading="lazy" decoding="async">
+</div>
+</figure></div>
+<div class="mosaic-column">
+<figure class="photo ">
+<div class="parallax">
+<img width="1200" height="1200" src="assets/img/jonriki-2.jpg" alt="Borð og bar í veitingasal" loading="lazy" decoding="async">
+</div>
+</figure><figure class="photo ">
+<div class="parallax">
+<img width="1200" height="675" src="assets/img/jonriki-4.jpg" alt="Morgunverðarhlaðborð" loading="lazy" decoding="async">
+</div>
+</figure><figure class="photo ">
+<div class="parallax">
+<img width="1200" height="900" src="assets/img/jonriki-6.jpg" alt="Kaka með skrauti" loading="lazy" decoding="async">
+</div>
+</figure></div>
+<div class="mosaic-column">
+<figure class="photo ">
+<div class="parallax">
+<img width="1200" height="960" src="assets/img/jonriki-3.jpg" alt="Litríkt loft yfir borðum og bar" loading="lazy" decoding="async">
+</div>
+</figure><figure class="photo ">
+<div class="parallax">
+<img width="1200" height="900" src="assets/img/jonriki-5.jpg" alt="Rækjukokteill í glasi" loading="lazy" decoding="async">
+</div>
+</figure><figure class="photo ">
+<div class="parallax">
+<img width="1200" height="898" src="assets/img/jonriki-7.jpg" alt="Matur á hvítum diskum" loading="lazy" decoding="async">
+</div>
+</figure><figure class="photo ">
+<div class="parallax">
+<img width="1200" height="906" src="assets/img/jonriki-8.jpg" alt="Eftirréttur í glasi á steinplötu" loading="lazy" decoding="async">
+</div>
+</figure></div>
+</div>
+</section>
+<section class="section" id="umhverfid">
+<p class="eyebrow reveal">05 · UMHVERFIÐ</p>
+<h2>
+<span class="mask">
+<span>MILLI JÖKULS OG MÓA</span>
+</span>
+</h2>
+<div class="film area-film">
+<img width="2000" height="1334" src="assets/img/aurora.jpg" alt="Norðurljós yfir húsum og fjöllum" decoding="async">
+</div>
+<div class="area-copy">
+<div>
+<p class="reveal">Gönguleið að Fláajökli liggur norðan bæjarins, gangandi eða akandi. Mólendi er til suðurs og vesturs, hreindýr og fjölbreytt fuglalíf.</p>
+<p class="reveal">Heitir pottar í Hoffelli</p>
+</div>
+<ul class="distances">
+<li>
+<i aria-hidden="true">
+</i>
+<span>Höfn</span>
+<span><span class="km" data-km="33">33</span> km</span>
+</li>
+<li>
+<i aria-hidden="true">
+</i>
+<span>Jökulsárlón</span>
+<span><span class="km" data-km="45">45</span> km</span>
+</li>
+<li>
+<i aria-hidden="true">
+</i>
+<span>Ingólfshöfði</span>
+<span><span class="km" data-km="80">80</span> km</span>
+</li>
+<li>
+<i aria-hidden="true">
+</i>
+<span>Skaftafell</span>
+<span><span class="km" data-km="100">100</span> km</span>
+</li>
+<li>
+<i aria-hidden="true">
+</i>
+<span>Djúpivogur</span>
+<span><span class="km" data-km="100">100</span> km</span>
+</li>
+</ul>
+</div>
+<div class="area-grid">
+<figure class="photo ">
+<div class="parallax">
+<img width="1200" height="900" src="assets/img/area-1.jpg" alt="Fláajökull og landslag við jökulinn" loading="lazy" decoding="async">
+</div>
+</figure>
+<figure class="photo ">
+<div class="parallax">
+<img width="1200" height="800" src="assets/img/area-2.jpg" alt="Blár jökulís og snævi þakin fjöll" loading="lazy" decoding="async">
+</div>
+</figure>
+<figure class="photo ">
+<div class="parallax">
+<img width="1200" height="900" src="assets/img/area-3.jpg" alt="Gras og blóm með jökul í fjarska" loading="lazy" decoding="async">
+</div>
+</figure>
+<figure class="photo ">
+<div class="parallax">
+<img width="1200" height="800" src="assets/img/area-4.jpg" alt="Mjólkurbrúsi með skilti" loading="lazy" decoding="async">
+</div>
+</figure>
+<figure class="photo ">
+<div class="parallax">
+<img width="1200" height="906" src="assets/img/area-5.jpg" alt="Snævi þakinn vegur" loading="lazy" decoding="async">
+</div>
+</figure>
+</div>
+</section>
+<section class="section winter">
+<div class="film ">
+<img width="2000" height="1334" src="assets/img/winter.jpg" alt="Snjór á bæjarhúsum og fjöllum" decoding="async">
+</div>
+<div>
+<p class="eyebrow reveal">06 · VETUR</p>
+<h2>
+<span class="mask">
+<span>OPIÐ ALLT ÁRIÐ</span>
+</span>
+</h2>
+<p class="caps reveal">Innritun frá 17:00 · útritun til 10:00</p>
+</div>
+</section>
+<section class="section booking-section" id="boka">
+<div>
+<p class="eyebrow reveal">07 · VELKOMIN Á HÓLM</p>
+<h2>
+<span class="mask">
+<span>BÓKAÐU DVÖL Á HÓLMI</span>
+</span>
+</h2>
+<button type="button" class="booking-card" data-book>
+<span>Dagsetningar <span aria-hidden="true">↗︎</span>
+</span>
+<span>Koma · Brottför</span>
+<span>Gestir · Veldu fjölda</span>
+<strong>SJÁ LAUSAR NÆTUR</strong>
+</button>
+<p class="contact reveal">
+<a href="tel:+3544782063">+354 478 2063</a> · <a href="mailto:holmur@eldhorn.is">holmur@eldhorn.is</a> · N64° 16.825 W15° 29.016</p>
+</div>
+<figure class="photo ">
+<div class="parallax">
+<img width="2000" height="1500" src="assets/img/book.jpg" alt="Bæjarhús og fjöll við Hólm" loading="lazy" decoding="async">
+</div>
+</figure>
+</section>
+</main>
+<footer>
+<a class="brand" href="#heim">
+<span>Hólmur Farm</span>
+</a>
+<p>Hólmur, 781 Hornafjörður</p>
+<a href="tel:+3544782063">+354 478 2063</a>
+<a href="mailto:holmur@eldhorn.is">holmur@eldhorn.is</a>
+<p class="credit"><span>Hannað af</span><a class="sndr" href="https://sndrstudio.is" target="_blank" rel="noopener" aria-label="Hannað af SNDR Studio" data-logotype><span class="sndr__mark">SN<i>✦</i>DR</span><span class="sndr__studio">STUDIO</span></a></p>
+</footer>
+<dialog id="menu" class="menu" aria-label="Valmynd" tabindex="-1">
+<a class="brand menu-brand" href="#heim" aria-label="Hólmur Farm, forsíða" data-menu-link>
+<span>Hólmur Farm</span>
+</a>
+<button type="button" class="menu-close" aria-label="Loka valmynd">
+<span>
+</span>
+<span>
+</span>
+<span>
+</span>
+</button>
+<nav aria-label="Farsímavalmynd">
+<a href="#gisting">GISTING</a>
+<span aria-hidden="true">·</span>
+<a href="#buid">BÚIÐ</a>
+<span aria-hidden="true">·</span>
+<a href="#jon-riki">JÓN RÍKI</a>
+<a href="#umhverfid">UMHVERFIÐ</a>
+<span aria-hidden="true">·</span>
+<a href="#boka">SAMBAND</a>
+<button type="button" class="fog" data-book>BÓKA GISTINGU</button>
+</nav>
+</dialog>
+<dialog id="gallery" class="lightbox" aria-label="Myndir af búinu" tabindex="-1">
+<div class="lightbox-scrim" data-gallery-close>
+</div>
+<div class="lightbox-stage">
+<img width="1200" height="900" src="assets/img/farm-1.jpg" alt="" id="gallery-image">
+<p class="gallery-caption" aria-live="polite">
+</p>
+</div>
+<button type="button" class="lightbox-close" data-gallery-close aria-label="Loka mynd">×</button>
+<button type="button" class="gallery-prev" aria-label="Fyrri mynd">←</button>
+<button type="button" class="gallery-next" aria-label="Næsta mynd">→</button>
+</dialog>
+<dialog class="bk" id="booking" aria-labelledby="booking-title">
+<div class="bk-bg" data-book-close>
+</div>
+<form class="bk-bar" tabindex="-1">
+<header class="bk-top">
+<div>
+<h2 class="bk-h" id="booking-title">Dvöl á Hólmi</h2>
+<p class="bk-sub">Veldu dagsetningar og fjölda gesta.</p>
+</div>
+<button class="bk-x" type="button" data-book-close aria-label="Loka bókun">×</button>
+</header>
+<div class="bk-body">
+<div class="bk-dates">
+<div class="bk-when">
+<p class="bk-l">Dagsetningar</p>
+<p class="bk-range">
+<span data-from>Koma</span>
+<span class="bk-to">·</span>
+<span data-to>Brottför</span>
+</p>
+</div>
+<div class="bk-gst">
+<div>
+<p class="bk-l">Gestir</p>
+<div class="bk-step">
+<button type="button" class="bk-minus" aria-label="Fækka gestum">−</button>
+<span class="bk-n" aria-live="polite">2 gestir</span>
+<button type="button" class="bk-plus" aria-label="Fjölga gestum">+</button>
+</div>
+<p class="bk-gnote">
+</p>
+</div>
+</div>
+<div class="bk-months">
+</div>
+</div>
+</div>
+<div class="bk-end">
+<div class="bk-sum" aria-live="polite">
+</div>
+<p class="bk-note" role="status">
+</p>
+<button class="bk-action fog" type="submit">
+<span>SJÁ LAUS HERBERGI</span>
+<span aria-hidden="true">↗︎</span>
+</button>
+<p class="bk-foot">Bókunarvél Hólms opnast í nýjum flipa.</p>
+</div>
+</form>
+</dialog>
+<noscript>
+<p class="no-js">Til að velja dagsetningar þarf JavaScript. <a href="https://property.godo.is/booking2.php?propid=94361" target="_blank" rel="noopener">Opna bókunarvél Hólms</a>
+</p>
+</noscript>
+</body>
+</html>
