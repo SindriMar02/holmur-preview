@@ -76,9 +76,11 @@ function barAndSpy(){
 function sectionMotion(){
  // M3 headings and statements: line masks, accent-safe
  $$('.split').forEach(el=>{
+  // the clip exists only while a line rises; once shown, every mask opens so no heading can ever be cut (descenders, accents)
   SplitText.create(el,{type:'lines',mask:'lines',linesClass:'hm-line',autoSplit:true,onSplit(self){
-   self.lines.forEach(l=>l.parentElement.classList.add('hm-line-mask'));
-   return gsap.from(self.lines,{yPercent:108,duration:1.2,stagger:.09,ease:'expo.out',scrollTrigger:{trigger:el,start:'top 88%',once:true}});
+   const masks=self.lines.map(l=>l.parentElement);masks.forEach(m=>m.classList.add('hm-line-mask'));
+   if(el._shown){masks.forEach(m=>{m.style.overflow='visible';});return;}
+   return gsap.from(self.lines,{yPercent:108,duration:1.2,stagger:.09,ease:'expo.out',scrollTrigger:{trigger:el,start:'top 88%',once:true},onComplete:()=>{el._shown=true;masks.forEach(m=>{m.style.overflow='visible';});}});
   }});
  });
  // M4 paragraphs, labels, rows
@@ -138,7 +140,8 @@ function choreography(){
     .fromTo('.hero .wm .c',{yPercent:112},{yPercent:0,duration:1.4,stagger:.08},.15)
     .fromTo('.hero-copy',{opacity:0,y:24},{opacity:1,y:0,duration:1.2},.6)
     .fromTo('.scroll-cue',{opacity:0},{opacity:1,duration:1},1)
-    .fromTo('.bar>*:not(.page-progress)',{opacity:0,y:-14},{opacity:1,y:0,duration:1,stagger:.07,clearProps:'transform'},.7);
+    .fromTo('.bar>*:not(.page-progress)',{opacity:0,y:-14},{opacity:1,y:0,duration:1,stagger:.07,clearProps:'transform'},.7)
+    .add(()=>{const w=$('.wordmark');if(w)w.style.overflow='visible';});
    arrived=true;
   }
   barAndSpy();
@@ -219,6 +222,83 @@ items.forEach((item,index)=>item.addEventListener('click',e=>{
 }));
 function galleryMove(direction){if(galleryClosing)return;galleryChange?.kill();galleryTimeline?.progress(1);if(!motion){galleryIndex=(galleryIndex+direction+items.length)%items.length;galleryContent();return;}galleryChange=gsap.timeline().to(galleryImage,{opacity:0,x:reduced.matches?0:-24*direction,duration:duration(.18),onComplete:()=>{galleryIndex=(galleryIndex+direction+items.length)%items.length;galleryContent();}}).fromTo(galleryImage,{x:reduced.matches?0:24*direction},{x:0,opacity:1,duration:reduced.matches?.15:.28});}
 $$('[data-gallery-close]').forEach(el=>el.addEventListener('click',galleryClose));$('.gallery-prev').addEventListener('click',()=>galleryMove(-1));$('.gallery-next').addEventListener('click',()=>galleryMove(1));gallery.addEventListener('cancel',e=>{e.preventDefault();galleryClose();});gallery.addEventListener('keydown',e=>{if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();galleryMove(e.key==='ArrowLeft'?-1:1);}});let swipeX;gallery.addEventListener('touchstart',e=>{swipeX=e.changedTouches[0].clientX;},{passive:true});gallery.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-swipeX;if(Math.abs(dx)>48)galleryMove(dx<0?1:-1);},{passive:true});
+
+/* ---- MAP (M16): real OpenStreetMap geometry (assets/js/geo.js, built by _docs/holmur-map-2026-11-03/build_geo.py). The list drives the camera. ---- */
+(function initMap(){
+ const geo=window.HOLMUR_GEO,svg=$('#hmap'),fig=$('.map-fig');if(!geo||!svg||!fig)return;
+ const NS='http://www.w3.org/2000/svg',mk=(n,a={})=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);return e;};
+ const g=mk('g');svg.append(g);
+ g.append(mk('rect',{x:-3000,y:-3000,width:7000,height:7000,class:'m-sea'}),mk('path',{d:geo.land,class:'m-land','fill-rule':'evenodd'}),mk('path',{d:geo.glacier,class:'m-ice','fill-rule':'evenodd'}),mk('path',{d:geo.water,class:'m-water'}),mk('path',{d:geo.roads,class:'m-road'}),mk('path',{d:geo.ring,class:'m-ring'}));
+ const items=$$('.map-steps li'),order=items.map(li=>li.dataset.poi),routes={},pins={};
+ order.forEach(n=>{if(!geo.routes[n])return;const p=mk('path',{d:geo.routes[n].d,class:'m-route'});g.append(p);routes[n]=p;});
+ const pg=mk('g');g.append(pg);
+ const addPin=(n,home)=>{const P=geo.places[n];if(!P)return;const e=mk('g',{class:'m-pin'+(home?' is-home':'')});e.style.transform=`translate(${P.x}px,${P.y}px) scale(var(--u))`;e.append(mk('circle',{class:'m-pulse',r:6}),mk('circle',{class:'m-dot',r:home?5:4}));const t=mk('text',{class:'m-label',x:10,y:4});t.textContent=n;e.append(t);pg.append(e);pins[n]=e;};
+ addPin('Hólmur',true);order.forEach(n=>addPin(n,false));
+ const kmOf=n=>{const r=geo.routes[n];return Math.round(r.km+(r.snapKm>1?r.snapKm*1.2:0));};
+ const approx=n=>geo.routes[n].snapKm>1;
+ items.forEach((li,k)=>{const b=$('.ms-km b',li);if(b&&geo.routes[order[k]])b.textContent=approx(order[k])?Math.round(kmOf(order[k])/5)*5:kmOf(order[k]);});
+ const ar=()=>fig.clientHeight/Math.max(1,fig.clientWidth);
+ let cam={x:0,y:0,w:geo.w};
+ const apply=()=>{svg.setAttribute('viewBox',`${cam.x} ${cam.y} ${cam.w} ${cam.w*ar()}`);fig.style.setProperty('--u',(cam.w/Math.max(1,fig.clientWidth)).toFixed(4));};
+ const frameOf=(pts,pad)=>{let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;pts.forEach(([x,y])=>{x0=Math.min(x0,x);y0=Math.min(y0,y);x1=Math.max(x1,x);y1=Math.max(y1,y);});const a=ar();let w=Math.max(x1-x0,(y1-y0)/a)*(1+pad*2);w=Math.max(w,150);const cx=(x0+x1)/2,cy=(y0+y1)/2;return{x:cx-w/2,y:cy-w*a/2,w};};
+ const pathPts=p=>{const L=p.getTotalLength();return Array.from({length:49},(_,i)=>{const q=p.getPointAtLength(L*i/48);return[q.x,q.y];});};
+ const home=geo.places['Hólmur'];
+ const allFrame=()=>frameOf([[home.x,home.y],...order.filter(n=>geo.places[n]).map(n=>[geo.places[n].x,geo.places[n].y])],.14);
+ const routeFrame=n=>frameOf(pathPts(routes[n]),.28);
+ const tweenCam=(to,d=1.5)=>{if(!motion||reduced.matches){cam={...to};apply();return;}gsap.to(cam,{...to,duration:d,ease:'power3.inOut',overwrite:true,onUpdate:apply});};
+ Object.values(routes).forEach(p=>{p._L=Math.ceil(p.getTotalLength())+2;p.style.strokeDasharray=`${p._L} ${p._L}`;p.style.strokeDashoffset=p._L;});
+ const hudName=$('.mh-name'),hudKm=$('.mh-km');let active=-2,hudTween;
+ function setActive(i,instant){
+  if(i===active)return;active=i;
+  items.forEach((li,k)=>li.classList.toggle('is-active',k===i));
+  order.forEach((n,k)=>{const p=routes[n],pin=pins[n];if(!p)return;
+   p.classList.toggle('is-live',k===i);p.classList.toggle('is-done',k<i);
+   pin?.classList.toggle('is-on',k===i);pin?.classList.toggle('is-seen',k<i);
+   gsap.killTweensOf(p);
+   if(k===i){if(instant||!motion||reduced.matches)p.style.strokeDashoffset=0;else gsap.fromTo(p,{strokeDashoffset:p._L},{strokeDashoffset:0,duration:1.7,ease:'power2.inOut'});}
+   else p.style.strokeDashoffset=k<i?0:p._L;});
+  hudTween?.kill();
+  if(i<0){tweenCam(allFrame(),instant?0:1.6);hudName.textContent='';hudKm.textContent='';return;}
+  const n=order[i];tweenCam(routeFrame(n),instant?0:1.6);hudName.textContent=n;
+  const target=approx(n)?Math.round(kmOf(n)/5)*5:kmOf(n),pre=approx(n)?'um ':'',o={v:0};
+  if(!motion||reduced.matches){hudKm.textContent=`${pre}${target} km`;return;}
+  hudTween=gsap.to(o,{v:target,duration:1.4,ease:'power2.out',onUpdate:()=>{hudKm.textContent=`${pre}${Math.round(o.v)} km`;}});
+ }
+ const io=new IntersectionObserver(es=>es.forEach(e=>{const k=items.indexOf(e.target);
+  if(e.isIntersecting)setActive(k);
+  else if(e.rootBounds&&e.boundingClientRect.top>e.rootBounds.bottom-1)setActive(k-1);}),{rootMargin:'-42% 0px -42% 0px',threshold:0});
+ items.forEach(li=>io.observe(li));
+ items.forEach((li,k)=>$('button',li).addEventListener('click',()=>{if(lenis)lenis.scrollTo(li,{offset:-innerHeight*.28});else li.scrollIntoView({behavior:reduced.matches?'auto':'smooth',block:'center'});setActive(k);}));
+ new ResizeObserver(()=>{cam=active<0?allFrame():routeFrame(order[active]);apply();}).observe(fig);
+ requestAnimationFrame(()=>{cam=allFrame();apply();setActive(-1,true);});
+})();
+
+/* ---- REVIEWS (M17): assets/data/reviews.json is kept current by scripts/sync-reviews.mjs (Airbnb collector, weekly) ---- */
+(function initReviews(){
+ const box=$('[data-rv]');if(!box)return;
+ const q=$('.rv-q p',box),by=$('.rv-by',box),when=$('.rv-when',box),bar=$('.rv-prog i',box),count=$('.rv-i',box),prev=$('.rv-prev',box),next=$('.rv-next',box);
+ const months=['janúar','febrúar','mars','apríl','maí','júní','júlí','ágúst','september','október','nóvember','desember'];
+ const ym=d=>{const [y,m]=d.split('-').map(Number);return `${months[m-1]} ${y}`;},dmy=d=>{const [y,m,dd]=d.split('-').map(Number);return `${dd}. ${months[m-1]} ${y}`;};
+ let list=[],i=0,paused=false,timer=null,loaded=false;
+ const fill=k=>{const r=list[k];q.textContent=r.text;by.textContent=r.author;when.textContent=ym(r.date);count.textContent=`${k+1} / ${list.length}`;};
+ const arm=()=>{timer?.kill();if(!motion||reduced.matches||list.length<2)return;gsap.set(bar,{scaleX:0});timer=gsap.to(bar,{scaleX:1,duration:9,ease:'none',paused,onComplete:()=>go(1)});};
+ function go(dir){if(!list.length)return;const k=(i+dir+list.length)%list.length;timer?.kill();
+  if(!motion||reduced.matches){i=k;fill(k);return;}
+  gsap.timeline({onComplete:arm}).to([q,by,when],{opacity:0,y:-14,duration:.35,stagger:.03,ease:'power2.in'}).add(()=>{i=k;fill(k);}).fromTo([q,by,when],{opacity:0,y:18},{opacity:1,y:0,duration:.7,stagger:.06,ease:'expo.out'});}
+ prev.addEventListener('click',()=>go(-1));next.addEventListener('click',()=>go(1));
+ const hold=v=>{paused=v;if(timer)timer.paused(v);};
+ box.addEventListener('pointerenter',()=>hold(true));box.addEventListener('pointerleave',()=>hold(false));box.addEventListener('focusin',()=>hold(true));box.addEventListener('focusout',()=>hold(false));
+ async function load(){if(loaded)return;loaded=true;
+  try{
+   const d=await (await fetch('assets/data/reviews.json',{cache:'no-cache'})).json();const s=d.sources?.[0];
+   if(s){$('[data-rv-rating]').textContent=String(s.rating).replace('.',',');$('[data-rv-count]').textContent=s.count;if(s.read)$('[data-rv-read]').textContent=dmy(s.read);}
+   const seen=new Set();
+   list=(d.reviews||[]).filter(r=>r.rating===5&&r.text&&r.text.length>=60&&r.text.length<=300&&!seen.has(r.author)&&seen.add(r.author)).slice(0,12).map(r=>({...r,text:r.text.replace(/\s+/g,' ').trim()}));
+   if(list.length){fill(0);arm();}
+  }catch(e){/* the static first quote and numbers stay */}
+ }
+ new IntersectionObserver((es,ob)=>{if(es.some(e=>e.isIntersecting)){load();ob.disconnect();}},{rootMargin:'900px 0px'}).observe(box);
+})();
 
 /* ---- BOOKING (M13): SNDR calendar engine, panel from right / bottom ---- */
 const book=$('#booking'),panel=$('.bk-bar',book);const booking=window.mountBooking(book,{min:1,max:18,guests:2});let bookTrigger,bookTimeline,bookClosing=false;

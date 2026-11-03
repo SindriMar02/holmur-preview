@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#1A1210">
 <meta name="color-scheme" content="light">
 <title>Hólmur · Gisting við rætur Vatnajökuls</title>
-<meta name="description" content="Fjölskyldurekið gistiheimili á starfandi sauðfjárbúi í Mýrum, 33&nbsp;km vestan Hafnar. Tvö uppgerð bæjarhús og morgunverður í Jón Ríki.">
+<meta name="description" content="Fjölskyldurekið gistiheimili á starfandi sauðfjárbúi í Mýrum, 18&nbsp;km vestan Hafnar. Tvö uppgerð bæjarhús og morgunverður í Jón Ríki.">
 <script>/* focus-guard: a focus ring only for people using a keyboard.
 
    The bug it ends: a menu, drawer or dialog opens and its FIRST link (or the dialog's close button)
@@ -42,6 +42,7 @@
 <script defer src="assets/vendor/SplitText.min.js"></script>
 <script defer src="assets/vendor/lenis.min.js"></script>
 <script defer src="assets/vendor/sndr-booking.js"></script>
+<script defer src="assets/js/geo.js"></script>
 <script defer src="assets/js/holmur.js"></script>
 </head>
 <body>
@@ -66,7 +67,7 @@
 <a class="scroll-cue" href="#yfirlit"><span>Skrunaðu</span><i aria-hidden="true"></i></a>
 </section>
 <section class="statement" id="yfirlit">
-<p class="lead split">Fjölskyldurekið gistiheimili á starfandi sauðfjárbúi, 33&nbsp;km vestan Hafnar og 45&nbsp;km austan Jökulsárlóns. Gist í uppgerðum bæjarhúsum og borðað morgunverð í Jón Ríki.</p>
+<p class="lead split">Fjölskyldurekið gistiheimili á starfandi sauðfjárbúi, 18&nbsp;km vestan Hafnar og 48&nbsp;km austan Jökulsárlóns. Gist í uppgerðum bæjarhúsum og borðað morgunverð í Jón Ríki.</p>
 </section>
 <section class="section story" id="nafnid">
 <svg class="river river-1" viewBox="0 0 1000 400" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="river-line" vector-effect="non-scaling-stroke" d="M860 0 C 860 150 560 130 500 230 S 170 330 40 400"/><path class="river-line b" vector-effect="non-scaling-stroke" d="M880 0 C 900 170 620 190 560 270 S 210 370 100 400"/></svg>
@@ -126,9 +127,13 @@
 <p class="label reveal">05 · Við borðið</p>
 <h2 class="split">Jón Ríki</h2>
 <div class="rest-copy"><p class="lead reveal">Veitingastaðurinn er í gömlu vélaskemmunni. Þar er morgunverður borinn fram með útsýni.</p>
-<p class="reveal">Fyrirspurnir um kvöldverð: <a href="tel:+3547830300">783 0300</a> eða <a href="mailto:holmur@eldhorn.is">holmur@eldhorn.is</a></p></div>
+<p class="reveal">Allar upplýsingar um Jón Ríki eru á jonriki.is. Fyrirspurnir um kvöldverð: <a href="tel:+3547830300">783 0300</a> eða <a href="mailto:holmur@eldhorn.is">holmur@eldhorn.is</a></p>
+<a class="btn btn-ring reveal" href="https://jonriki.is" target="_blank" rel="noopener"><span class="btn-t">Fara á jonriki.is</span></a></div>
 </div>
-<div class="rest-grid"><figure class="photo j1"><div class="ph-in"><img width="1200" height="740" src="assets/img/jonriki-1.jpg" alt="Borð og stólar í veitingasal" loading="lazy" decoding="async"></div></figure><figure class="photo j2"><div class="ph-in"><img width="1200" height="960" src="assets/img/jonriki-3.jpg" alt="Litríkt loft yfir borðum og bar" loading="lazy" decoding="async"></div></figure><figure class="photo j3"><div class="ph-in"><img width="1200" height="675" src="assets/img/jonriki-4.jpg" alt="Morgunverðarhlaðborð" loading="lazy" decoding="async"></div></figure><figure class="photo j4"><div class="ph-in"><img width="1200" height="900" src="assets/img/jonriki-5.jpg" alt="Rækjukokteill í glasi" loading="lazy" decoding="async"></div></figure><figure class="photo j5"><div class="ph-in"><img width="1200" height="900" src="assets/img/jonriki-6.jpg" alt="Kaka með skrauti" loading="lazy" decoding="async"></div></figure></div>
+<div class="rest-grid">
+<figure class="photo j1"><div class="ph-in"><img width="1200" height="740" src="assets/img/jonriki-1.jpg" alt="Borð og stólar í veitingasal" loading="lazy" decoding="async"></div></figure>
+<figure class="photo j2"><div class="ph-in"><img width="1200" height="960" src="assets/img/jonriki-3.jpg" alt="Litríkt loft yfir borðum og bar" loading="lazy" decoding="async"></div></figure>
+</div>
 </section>
 <section class="area" id="umhverfid">
 <svg class="river river-3" viewBox="0 0 1000 400" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="river-line" vector-effect="non-scaling-stroke" d="M900 0 C 900 120 700 140 560 210 S 220 300 70 400"/><path class="river-line b" vector-effect="non-scaling-stroke" d="M930 0 C 950 150 740 190 600 250 S 250 350 120 400"/></svg>
@@ -136,12 +141,52 @@
 <div class="area-title"><p class="label reveal">06 · Umhverfið</p><h2 class="split">Milli jökuls og móa</h2></div></div>
 <div class="section area-body"><div class="grid">
 <div class="area-copy"><p class="lead reveal">Gönguleið að Fláajökli liggur norðan bæjarins, gangandi eða akandi. Mólendi er til suðurs og vesturs, hreindýr og fjölbreytt fuglalíf.</p><p class="reveal">Heitir pottar í Hoffelli</p></div>
-<ul class="distances"><li><i aria-hidden="true"></i><span>Höfn</span><span><span class="km" data-km="33">33</span> km</span></li><li><i aria-hidden="true"></i><span>Jökulsárlón</span><span><span class="km" data-km="45">45</span> km</span></li><li><i aria-hidden="true"></i><span>Ingólfshöfði</span><span><span class="km" data-km="80">80</span> km</span></li><li><i aria-hidden="true"></i><span>Skaftafell</span><span><span class="km" data-km="100">100</span> km</span></li><li><i aria-hidden="true"></i><span>Djúpivogur</span><span><span class="km" data-km="100">100</span> km</span></li></ul></div>
+</div>
 <ul class="strip" aria-label="Myndir úr nágrenninu"><li><figure class="photo "><div class="ph-in"><img width="1200" height="900" src="assets/img/area-1.jpg" alt="Fláajökull og landslag við jökulinn" loading="lazy" decoding="async"></div></figure></li><li><figure class="photo "><div class="ph-in"><img width="1200" height="800" src="assets/img/area-2.jpg" alt="Blár jökulís og snævi þakin fjöll" loading="lazy" decoding="async"></div></figure></li><li><figure class="photo "><div class="ph-in"><img width="1200" height="900" src="assets/img/area-3.jpg" alt="Gras og blóm með jökul í fjarska" loading="lazy" decoding="async"></div></figure></li><li><figure class="photo "><div class="ph-in"><img width="1200" height="800" src="assets/img/area-4.jpg" alt="Mjólkurbrúsi með skilti" loading="lazy" decoding="async"></div></figure></li><li><figure class="photo "><div class="ph-in"><img width="1200" height="906" src="assets/img/area-5.jpg" alt="Snævi þakinn vegur" loading="lazy" decoding="async"></div></figure></li></ul></div>
+</section>
+<section class="section night mapsec" id="kort">
+<div class="grid head">
+<p class="label reveal">06 · Kortið</p>
+<h2 class="split">Hólmur á kortinu</h2>
+<p class="lead reveal">Frá bænum er stutt í allt það helsta. Vegalengdirnar eru mældar eftir vegi á opnum kortagögnum.</p>
+</div>
+<div class="map-stage">
+<ol class="map-steps">
+<li data-poi="Höfn"><button type="button"><span class="ms-n">01</span><span class="ms-t"><strong>Höfn</strong><span>Næsti kaupstaður</span></span><span class="ms-km"><b>18</b> km</span></button></li>
+<li data-poi="Hoffell"><button type="button"><span class="ms-n">02</span><span class="ms-t"><strong>Hoffell</strong><span>Heitir pottar</span></span><span class="ms-km"><b>19</b> km</span></button></li>
+<li data-poi="Jökulsárlón"><button type="button"><span class="ms-n">03</span><span class="ms-t"><strong>Jökulsárlón</strong><span>Jökullónið við hringveginn</span></span><span class="ms-km"><b>48</b> km</span></button></li>
+<li data-poi="Ingólfshöfði"><button type="button"><span class="ms-n">04</span><span class="ms-t"><strong>Ingólfshöfði</strong><span>Höfðinn í Öræfum</span></span><span class="ms-km">um <b>90</b> km</span></button></li>
+<li data-poi="Skaftafell"><button type="button"><span class="ms-n">05</span><span class="ms-t"><strong>Skaftafell</strong><span>Þjóðgarðurinn</span></span><span class="ms-km"><b>104</b> km</span></button></li>
+<li data-poi="Djúpivogur"><button type="button"><span class="ms-n">06</span><span class="ms-t"><strong>Djúpivogur</strong><span>Þorp við Berufjörð</span></span><span class="ms-km"><b>115</b> km</span></button></li>
+</ol>
+<figure class="map-fig" aria-label="Kort af Hólmi og nágrenni">
+<div class="map-hud" aria-hidden="true"><span class="mh-from">Frá Hólmi</span><span class="mh-name"></span><span class="mh-km"></span></div>
+<svg id="hmap" role="img" aria-label="Kort sem sýnir vegi frá Hólmi til Hafnar, Hoffells, Jökulsárlóns, Ingólfshöfða, Skaftafells og Djúpavogs" preserveAspectRatio="xMidYMid slice"></svg>
+<figcaption>Kortagögn © OpenStreetMap contributors</figcaption>
+</figure>
+</div>
 </section>
 <section class="section winter" id="vetur">
 <figure class="photo winter-photo big"><div class="ph-in"><img width="2000" height="1334" src="assets/img/winter.jpg" alt="Snjór á bæjarhúsum og fjöllum" loading="lazy" decoding="async"></div></figure>
 <div class="winter-copy"><p class="label reveal">07 · Vetur</p><h2 class="split">Opið allt árið</h2><p class="reveal caps">Innritun frá 17:00 · útritun til 10:00</p></div>
+</section>
+<section class="section reviews" id="umsagnir">
+<div class="grid head">
+<p class="label reveal">08 · Umsagnir</p>
+<h2 class="split">Gestirnir segja</h2>
+</div>
+<div class="rv">
+<div class="rv-score">
+<p class="rv-num"><span data-rv-rating>4,78</span><small>af 5</small></p>
+<p class="rv-sub"><span data-rv-count>423</span> umsagnir á Airbnb</p>
+<p class="rv-meta">Lesið <span data-rv-read>3. nóvember 2026</span>. Uppfærist sjálfkrafa.</p>
+<a class="rv-link" href="https://www.airbnb.com/rooms/14719950" target="_blank" rel="noopener">Sjá allar umsagnir á Airbnb</a>
+</div>
+<div class="rv-slider" data-rv>
+<figure class="rv-card"><blockquote class="rv-q"><p>Cute little shared cabin and dedicated host</p></blockquote><figcaption><span class="rv-by">Ashley</span><span class="rv-when">september 2026</span></figcaption></figure>
+<div class="rv-ctl"><button type="button" class="rv-prev" aria-label="Fyrri umsögn">←</button><div class="rv-prog" aria-hidden="true"><i></i></div><button type="button" class="rv-next" aria-label="Næsta umsögn">→</button><span class="rv-i" aria-hidden="true"></span></div>
+</div>
+</div>
 </section>
 <section class="section night booking-section" id="boka">
 <div class="book-copy"><p class="label reveal">08 · Velkomin á Hólm</p><h2 class="split">Bókaðu dvöl á Hólmi</h2>
