@@ -15,6 +15,7 @@ function mountBooking(root, { min = 1, max = 10, guests = 2, months = 18, onStep
   const form = $('form'), monthsBox = $('.bk-months'), from = $('[data-from]'), to = $('[data-to]');
   const minus = $('.bk-minus'), plus = $('.bk-plus'), gshow = $('.bk-n'), gnote = $('.bk-gnote');
   const sum = $('.bk-sum'), note = $('.bk-note'), action = $('.bk-action'), actionLabel = $('.bk-action > span');
+  const hint = $('.bk-hint'), clearBtn = $('.bk-clear');   // Hólmur calendar (3 Nov): what to pick next, and one tap to start over
   // Hólmur: dates and guests only; Godo owns availability and checkout.
   const pad = (n) => String(n).padStart(2, '0');
   const iso = (d) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
@@ -64,15 +65,24 @@ function mountBooking(root, { min = 1, max = 10, guests = 2, months = 18, onStep
       d.classList.toggle('pv', !st.end && !!b && k > st.start && k < b);
       d.classList.toggle('pv-end', !st.end && !!b && k === b && !(st.start && k < iso(addDays(at(st.start), min))));
       d.classList.toggle('today', k === todayK);
+      // the rounded ends of the range band
+      d.classList.toggle('cap-r', k === st.start && !!b && b > st.start);
+      d.classList.toggle('cap-l', !!st.start && !!b && k === b && b > st.start);
       // the nights too close to the arrival for the minimum stay
       d.classList.toggle('short', !!st.start && !st.end && k > st.start && k < iso(addDays(at(st.start), min)));
       d.setAttribute('aria-pressed', String(on)); d.tabIndex = d === tab ? 0 : -1;
     });
   }
   function labels() {
-    from.textContent = st.start ? fShort.format(at(st.start)) : 'Koma';
-    to.textContent = st.end ? fShort.format(at(st.end)) : 'Brottför';
+    from.textContent = st.start ? fShort.format(at(st.start)) : 'Veldu dag';
+    to.textContent = st.end ? fShort.format(at(st.end)) : 'Veldu dag';
     from.classList.toggle('is-set', !!st.start); to.classList.toggle('is-set', !!st.end);
+    // the tile the next tap fills is marked, so there is never a question what to do
+    from.closest('.bk-tile')?.classList.toggle('is-next', !st.start || !!st.end);
+    to.closest('.bk-tile')?.classList.toggle('is-next', !!st.start && !st.end);
+    if (hint) hint.textContent = st.start && st.end ? plural(nights(), 'night') : st.start ? 'Veldu brottfarardag.' : 'Veldu komudag.';
+    if (clearBtn) clearBtn.hidden = !st.start;
+    action.classList.toggle('is-idle', !(st.start && st.end));
     sum.textContent = st.start && st.end
       ? `${fShort.format(at(st.start))} · ${fShort.format(at(st.end))} · ${plural(nights(), 'night')} · ${plural(st.guests, 'guest')}`
       : st.start ? 'Veldu brottfarardag.' : 'Veldu komu og brottför.';
@@ -81,11 +91,13 @@ function mountBooking(root, { min = 1, max = 10, guests = 2, months = 18, onStep
   function render() {
     const n = wide.matches ? 2 : 1;
     const prevOk = st.view > firstMonth, nextOk = new Date(st.view.getFullYear(), st.view.getMonth() + n - 1, 1) < lastMonth;
-    const arrows = `<span class="bk-nav"><button class="bk-prev" type="button" aria-label="Fyrri mánuður"${prevOk ? '' : ' disabled'}><svg class="bk-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><button class="bk-next" type="button" aria-label="Næsti mánuður"${nextOk ? '' : ' disabled'}><svg class="bk-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button></span>`;
+    // Hólmur: previous arrow left of the first month, next arrow right of the last, the title centred between them
+    const prevB = `<span class="bk-nav"><button class="bk-prev" type="button" aria-label="Fyrri mánuður"${prevOk ? '' : ' disabled'}><svg class="bk-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button></span>`;
+    const nextB = `<span class="bk-nav"><button class="bk-next" type="button" aria-label="Næsti mánuður"${nextOk ? '' : ' disabled'}><svg class="bk-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button></span>`;
     let html = '';
     for (let i = 0; i < n; i++) {
       const m = new Date(st.view.getFullYear(), st.view.getMonth() + i, 1), lead = (m.getDay() + 6) % 7, count = new Date(m.getFullYear(), m.getMonth() + 1, 0).getDate();
-      html += `<div class="bk-m" role="group" aria-label="${fMonth.format(m)}"><div class="bk-m-h"><p class="bk-m-t">${fMonth.format(m)}</p>${i === n - 1 ? arrows : ''}</div><div class="bk-dow" aria-hidden="true">${['M', 'Þ', 'M', 'F', 'F', 'L', 'S'].map((d) => `<span>${d}</span>`).join('')}</div><div class="bk-days">${'<span></span>'.repeat(lead)}`;
+      html += `<div class="bk-m" role="group" aria-label="${fMonth.format(m)}"><div class="bk-m-h">${i === 0 ? prevB : '<span></span>'}<p class="bk-m-t">${fMonth.format(m)}</p>${i === n - 1 ? nextB : '<span></span>'}</div><div class="bk-dow" aria-hidden="true">${['M', 'Þ', 'M', 'F', 'F', 'L', 'S'].map((d) => `<span>${d}</span>`).join('')}</div><div class="bk-days">${'<span></span>'.repeat(lead)}`;
       for (let d = 1; d <= count; d++) { const dt = new Date(m.getFullYear(), m.getMonth(), d), k = iso(dt); html += `<button type="button" class="bk-d${k >= firstDay && k <= lastDay && takenFn(k) ? ' bk-taken' : ''}" data-d="${k}" aria-label="${fLong.format(dt)}${k >= firstDay && k <= lastDay && takenFn(k) ? ', frátekið' : ''}" aria-pressed="false" tabindex="-1"${openNight(k) ? '' : ' disabled'}>${d}</button>`; }
       html += '</div></div>';
     }
@@ -93,12 +105,12 @@ function mountBooking(root, { min = 1, max = 10, guests = 2, months = 18, onStep
     paint();
   }
   let slide = [];
-  function page(step) {
+  function page(step, quiet) {
     const v = new Date(st.view.getFullYear(), st.view.getMonth() + step, 1);
     if (v < firstMonth || v > lastMonth) return;
     st.view = v; render();
     const same = $(step > 0 ? '.bk-next' : '.bk-prev', monthsBox);
-    (same && !same.disabled ? same : $('.bk-prev:not(:disabled), .bk-next:not(:disabled)', monthsBox))?.focus({ preventScroll: true });
+    if (!quiet) (same && !same.disabled ? same : $('.bk-prev:not(:disabled), .bk-next:not(:disabled)', monthsBox))?.focus({ preventScroll: true });
     slide.forEach((a) => a.cancel());
     if (!still.matches) slide = $$('.bk-dow, .bk-days', monthsBox).map((el) => el.animate([{ opacity: 0, transform: `translateX(${step * 14}px)` }, { opacity: 1, transform: 'none' }], { duration: 220, easing: 'cubic-bezier(.23, 1, .32, 1)' }));
   }
@@ -144,6 +156,15 @@ function mountBooking(root, { min = 1, max = 10, guests = 2, months = 18, onStep
     if (k !== st.hover) { st.hover = k; paint(); }
   });
   monthsBox.addEventListener('pointerleave', () => { if (st.hover) { st.hover = ''; paint(); } });
+  // phone: swipe the month sideways
+  let sx = 0, sy = 0;
+  monthsBox.addEventListener('touchstart', (e) => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
+  monthsBox.addEventListener('touchend', (e) => {
+    if (wide.matches) return;
+    const t = e.changedTouches[0], dx = t.clientX - sx, dy = t.clientY - sy;
+    if (Math.abs(dx) > 56 && Math.abs(dx) > Math.abs(dy) * 1.6) page(dx < 0 ? 1 : -1, true);
+  }, { passive: true });
+  clearBtn?.addEventListener('click', () => { st.start = st.end = st.hover = ''; say(''); sync(); });
   monthsBox.addEventListener('keydown', (e) => {
     const b = e.target.closest('.bk-d'); if (!b) return;
     const d = at(b.dataset.d), col = (d.getDay() + 6) % 7;
