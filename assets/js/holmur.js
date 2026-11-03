@@ -189,7 +189,18 @@ function menuShow(e){menuOpen=true;toggle.setAttribute('aria-expanded','true');t
   .fromTo($$('.hamburger span:first-child,.menu-close span:first-child'),{y:0,rotation:0},{y:4.5,rotation:45,duration:.5},0)
   .fromTo($$('.hamburger span:last-child,.menu-close span:last-child'),{y:0,rotation:0},{y:-4.5,rotation:-45,duration:.5},0);
 }
-toggle.addEventListener('click',e=>menuOpen?menuClose():menuShow(e));$('.menu-close').addEventListener('click',()=>menuClose());menu.addEventListener('cancel',e=>{e.preventDefault();menuClose();});$$('a',menu).forEach(a=>a.addEventListener('click',()=>menuClose(true)));
+toggle.addEventListener('click',e=>menuOpen?menuClose():menuShow(e));$('.menu-close').addEventListener('click',()=>menuClose());menu.addEventListener('cancel',e=>{e.preventDefault();menuClose();});// menu links: unlock the page FIRST, then go to the section (the scroll lock used to restore the old position over the jump on phones)
+$$('a',menu).forEach(a=>a.addEventListener('click',e=>{
+ const h=a.getAttribute('href');
+ if(!h||h.charAt(0)!=='#'){menuClose(true);return;}
+ e.preventDefault();menuClose(true);
+ const t=document.getElementById(h.slice(1));if(!t)return;
+ requestAnimationFrame(()=>{
+  const barH=$('.bar').getBoundingClientRect().height;
+  if(lenis)lenis.scrollTo(t,{offset:-barH,immediate:true,force:true});else window.scrollTo({top:Math.max(0,t.getBoundingClientRect().top+scrollY-barH),behavior:'auto'});
+  history.pushState(null,'',h);t.setAttribute('tabindex','-1');t.focus({preventScroll:true});
+ });
+}));
 matchMedia('(min-width:1100px)').addEventListener('change',e=>{if(e.matches&&menu.open)menuClose(true);});
 
 /* ---- GALLERY (M12): rectangle FLIP, reversible open, directional crossfade, swipe and key navigation ---- */
