@@ -204,6 +204,13 @@ $$('a',menu).forEach(a=>a.addEventListener('click',e=>{
   // lazy photos and fonts settle after a long jump: correct the landing twice unless the visitor has already moved on
   [500,1400].forEach(ms=>setTimeout(()=>{if(!moved&&Math.abs(t.getBoundingClientRect().top-$('.bar').getBoundingClientRect().height)>4)go();},ms));});
 }));
+// a link that arrives with #section (shared, bookmarked, typed) lands flush under the bar even though lazy photos above it settle after the first jump
+(()=>{const id=decodeURIComponent(location.hash.slice(1));const t=id&&document.getElementById(id);if(!t)return;
+ let moved=false;const mark=()=>{moved=true;};addEventListener('touchstart',mark,{passive:true,once:true});addEventListener('wheel',mark,{passive:true,once:true});
+ const fix=()=>{if(moved)return;const barH=$('.bar').getBoundingClientRect().height;if(Math.abs(t.getBoundingClientRect().top-barH)<=4)return;
+  if(lenis)lenis.scrollTo(t,{offset:-barH,immediate:true,force:true});else window.scrollTo({top:Math.max(0,t.getBoundingClientRect().top+scrollY-barH),behavior:'auto'});};
+ const run=()=>[200,900,1800].forEach(ms=>setTimeout(fix,ms));
+ document.readyState==='complete'?run():addEventListener('load',run,{once:true});})();
 matchMedia('(min-width:1100px)').addEventListener('change',e=>{if(e.matches&&menu.open)menuClose(true);});
 
 /* ---- GALLERY (M12): rectangle FLIP, reversible open, directional crossfade, swipe and key navigation ---- */
