@@ -69,6 +69,8 @@ function barAndSpy(){
  ScrollTrigger.create({trigger:'.hero',start:'bottom top+=96',end:()=>document.documentElement.scrollHeight*2,onToggle:s=>bar.classList.toggle('is-solid',s.isActive)});
  $$('.nav a').forEach(a=>{const t=document.getElementById(a.hash.slice(1));if(!t)return;
   ScrollTrigger.create({trigger:t,start:'top 45%',end:'bottom 45%',onToggle:s=>{if(s.isActive)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');}});});
+ // the fixed footer is only painted near the end of the page, so it can never show through during fast jumps on iOS
+ ScrollTrigger.create({trigger:'.page',start:'bottom bottom+=360',end:()=>ScrollTrigger.maxScroll(window)+20,onToggle:s=>root.classList.toggle('foot-on',s.isActive)});
  if(!reduced.matches)gsap.fromTo('.page-progress',{scaleX:0},{scaleX:1,ease:'none',scrollTrigger:{start:0,end:()=>ScrollTrigger.maxScroll(window),scrub:true}});
 }
 
@@ -195,11 +197,12 @@ $$('a',menu).forEach(a=>a.addEventListener('click',e=>{
  if(!h||h.charAt(0)!=='#'){menuClose(true);return;}
  e.preventDefault();menuClose(true);
  const t=document.getElementById(h.slice(1));if(!t)return;
- requestAnimationFrame(()=>{
-  const barH=$('.bar').getBoundingClientRect().height;
-  if(lenis)lenis.scrollTo(t,{offset:-barH,immediate:true,force:true});else window.scrollTo({top:Math.max(0,t.getBoundingClientRect().top+scrollY-barH),behavior:'auto'});
-  history.pushState(null,'',h);t.setAttribute('tabindex','-1');t.focus({preventScroll:true});
- });
+ let moved=false;const mark=()=>{moved=true;};addEventListener('touchstart',mark,{passive:true,once:true});addEventListener('wheel',mark,{passive:true,once:true});
+ const go=()=>{const barH=$('.bar').getBoundingClientRect().height;
+  if(lenis)lenis.scrollTo(t,{offset:-barH,immediate:true,force:true});else window.scrollTo({top:Math.max(0,t.getBoundingClientRect().top+scrollY-barH),behavior:'auto'});};
+ requestAnimationFrame(()=>{go();history.pushState(null,'',h);t.setAttribute('tabindex','-1');t.focus({preventScroll:true});
+  // lazy photos and fonts settle after a long jump: correct the landing twice unless the visitor has already moved on
+  [500,1400].forEach(ms=>setTimeout(()=>{if(!moved&&Math.abs(t.getBoundingClientRect().top-$('.bar').getBoundingClientRect().height)>4)go();},ms));});
 }));
 matchMedia('(min-width:1100px)').addEventListener('change',e=>{if(e.matches&&menu.open)menuClose(true);});
 

@@ -435,3 +435,5 @@ html:not(.js) .m-route{opacity:1}
 .ms-km b{font-size:clamp(34px,9.5vw,48px)}
 .rv-num span{font-size:clamp(96px,30vw,150px)}
 }
+html.js .foot{opacity:0;pointer-events:none}
+html.js.foot-on .foot,html.js .foot:focus-within{opacity:1;pointer-events:auto}
