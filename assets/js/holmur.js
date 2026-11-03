@@ -295,6 +295,10 @@ $$('[data-gallery-close]').forEach(el=>el.addEventListener('click',galleryClose)
  const ym=d=>{const [y,m]=d.split('-').map(Number);return `${months[m-1]} ${y}`;},dmy=d=>{const [y,m,dd]=d.split('-').map(Number);return `${dd}. ${months[m-1]} ${y}`;};
  let list=[],i=0,paused=false,timer=null,loaded=false;
  const fill=k=>{const r=list[k];q.textContent=r.text;by.textContent=r.author;when.textContent=ym(r.date);count.textContent=`${k+1} / ${list.length}`;};
+ /* every quote gets the height of the longest one, so the controls and the sections below never jump between slides */
+ const card=$('.rv-card',box);let lvT,lvW=innerWidth;
+ const level=()=>{if(!list.length)return;card.style.minHeight='';let m=0;list.forEach((_,k)=>{fill(k);m=Math.max(m,card.offsetHeight);});card.style.minHeight=m+'px';fill(i);};
+ addEventListener('resize',()=>{clearTimeout(lvT);lvT=setTimeout(()=>{if(innerWidth!==lvW){lvW=innerWidth;level();}},200);});
  const arm=()=>{timer?.kill();if(!motion||reduced.matches||list.length<2)return;gsap.set(bar,{scaleX:0});timer=gsap.to(bar,{scaleX:1,duration:9,ease:'none',paused,onComplete:()=>go(1)});};
  function go(dir){if(!list.length)return;const k=(i+dir+list.length)%list.length;timer?.kill();
   if(!motion||reduced.matches){i=k;fill(k);return;}
@@ -308,7 +312,7 @@ $$('[data-gallery-close]').forEach(el=>el.addEventListener('click',galleryClose)
    if(s){$('[data-rv-rating]').textContent=String(s.rating).replace('.',',');$('[data-rv-count]').textContent=s.count;if(s.read)$('[data-rv-read]').textContent=dmy(s.read);}
    const seen=new Set();
    list=(d.reviews||[]).filter(r=>r.rating===5&&r.text&&r.text.length>=60&&r.text.length<=300&&!seen.has(r.author)&&seen.add(r.author)).slice(0,12).map(r=>({...r,text:r.text.replace(/\s+/g,' ').trim()}));
-   if(list.length){fill(0);arm();}
+   if(list.length){fill(0);await document.fonts.ready;level();arm();}
   }catch(e){/* the static first quote and numbers stay */}
  }
  new IntersectionObserver((es,ob)=>{if(es.some(e=>e.isIntersecting)){load();ob.disconnect();}},{rootMargin:'900px 0px'}).observe(box);

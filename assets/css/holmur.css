@@ -52,7 +52,7 @@ button:active,a:active{scale:.98}
 button,a{transition:scale .18s var(--ease-out)}
 
 /* ---------- bar ---------- */
-.bar{position:fixed;z-index:20;top:0;left:0;right:0;height:var(--bar);padding:0 var(--pad);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;color:var(--ink);background:rgba(241,238,231,.96);box-shadow:0 1px 0 var(--line);transition:background .55s var(--ease),color .55s var(--ease),box-shadow .55s var(--ease)}
+.bar{position:fixed;z-index:20;top:0;left:0;right:0;height:var(--bar);padding:0 var(--pad);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;color:var(--ink);background:#F1EEE7;box-shadow:0 1px 0 var(--line);transition:background .55s var(--ease),color .55s var(--ease),box-shadow .55s var(--ease)}
 html.js .bar:not(.is-solid){background:transparent;color:var(--ice);box-shadow:0 1px 0 transparent}
 .brand{display:flex;align-items:baseline;gap:.42em;justify-self:center;min-height:44px;align-self:center;line-height:1}
 .brand-name{font:500 32px/1 var(--serif);letter-spacing:-.035em}
